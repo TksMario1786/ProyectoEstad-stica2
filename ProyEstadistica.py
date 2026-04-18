@@ -33,29 +33,3 @@ else:
 st.subheader("Datos")
 st.write(df)
 
-
-st.sidebar.header("Selección de Variables")
-selected_columns = st.sidebar.multiselect("Selecciona las variables a visualizar:", df.columns)
-
-if not selected_columns:
-    st.warning("Por favor, selecciona al menos una variable.")
-    st.stop()
-
-st.subheader("Visualización de Distribuciones")
-
-chart_type = st.selectbox("Selecciona el tipo de gráfico:", ["Histograma", "Gráfico de Densidad", "Boxplot"])
-
-for col in selected_columns:
-    st.write(f"**Distribución de {col}**")
-    if chart_type == "Histograma":
-        fig, ax = plt.subplots()
-        sns.histplot(df[col], kde=True, ax=ax)
-        st.pyplot(fig)
-    elif chart_type == "Gráfico de Densidad":
-        fig, ax = plt.subplots()
-        sns.kdeplot(df[col], ax=ax)
-        st.pyplot(fig)
-    elif chart_type == "Boxplot":
-        fig, ax = plt.subplots()
-        sns.boxplot(x=df[col], ax=ax)
-        st.pyplot(fig)
